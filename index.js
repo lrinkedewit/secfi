@@ -217,38 +217,31 @@ const outputMainFunc = [
   }
 ]
 
-// function to change date format
-function reverseDateFormat(dateString) {
-  let reversedDate = dateString.split('-').reverse().join('-')
-  return reversedDate
-}
 
-  // EXAMPLE
-  // console.log(`reversedDateFormat`, reverseDateFormat("01-01-2018"))
+// function to increment the month second option
+function incrementMonth (date) { 
+  const dateArray = date.split('-');
+  const dateNumbersArray = dateArray.map((el) => Number(el))
 
+  let yearNum = dateNumbersArray[2];
+  let monthNum = dateNumbersArray[1];
+  let dayNum = dateNumbersArray[0];
 
-
-// function to increment the month
-function incrementMonth (date) {
-  // split the date into an array, check element 0, year, 1, month, 2, day
-  const dateArray = date.split('-')
-  const 
-  
-  const year = 0;
-  const month = 1;
-
-  if (dateArray[month] === 12) {
-    dateArray[month] = 0;
-    dateArray[year] += 1;
-  }
-  else {
-    dateArray[month] += 1;
+  if (monthNum === 12) {
+    monthNum = 1
+    yearNum += 1
+  } else {
+    monthNum += 1
   }
 
-  return dateArray;
+  let yearString = String(yearNum);
+  let monthString = String(monthNum).padStart(2, '0');
+  let dayString = String(dayNum).padStart(2, '0');
+
+  const output = dayString + '-' + monthString + '-' + yearString
+  return output;
 }
 
-console.log(incrementMonth("2018-01-01"))
 
 
 
@@ -263,7 +256,7 @@ console.log(incrementMonth("2018-01-01"))
 
 // Variables extracted from req object
 const quantity = 4800;
-const start_date = "2018-01-01";
+const start_date = "01-01-2018";
 const cliff_months = 12;
 const duration_months = 48;
 
