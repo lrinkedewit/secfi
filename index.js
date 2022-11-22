@@ -263,8 +263,8 @@ const duration_months = 48;
 // Variables declared
 
 
-const monthlyValueAdd = quantity / duration_months
-let date = start_date
+const monthlyValueAdd = quantity / duration_months;
+let date = start_date;
 
 const vestingCalculator = () => {
 
@@ -279,7 +279,7 @@ const vestingCalculator = () => {
   }
     
   // while counter_duration > 0, continue
-  while (counter_duration > 0) {
+  while (counter_duration > -1) {
 
     // first check if the cliff has expired yet
     if (counter_cliff > 0) {
