@@ -9,6 +9,214 @@
  * 
  */
 
+const inputMainFunc = [
+  {
+    "quantity": 4800,
+    "start_date": "01-01-2018",
+    "cliff_months": 12,
+    "duration_months": 48
+  }
+]
+
+const outputMainFunc = [
+  {
+    "vested_quantity": 0,
+    "date": "01-01-2018"
+  },
+  {
+    "vested_quantity": 0,
+    "date": "01-02-2018"
+  },
+  {
+    "vested_quantity": 0,
+    "date": "01-03-2018"
+  },
+  {
+    "vested_quantity": 0,
+    "date": "01-04-2018"
+  },
+  {
+    "vested_quantity": 0,
+    "date": "01-05-2018"
+  },
+  {
+    "vested_quantity": 0,
+    "date": "01-06-2018"
+  },
+  {
+    "vested_quantity": 0,
+    "date": "01-07-2018"
+  },
+  {
+    "vested_quantity": 0,
+    "date": "01-08-2018"
+  },
+  {
+    "vested_quantity": 0,
+    "date": "01-09-2018"
+  },
+  {
+    "vested_quantity": 0,
+    "date": "01-10-2018"
+  },
+  {
+    "vested_quantity": 0,
+    "date": "01-11-2018"
+  },
+  {
+    "vested_quantity": 0,
+    "date": "01-12-2018"
+  },
+  {
+    "vested_quantity": 1200,
+    "date": "01-01-2019"
+  },
+  {
+    "vested_quantity": 1300,
+    "date": "01-02-2019"
+  },
+  {
+    "vested_quantity": 1400,
+    "date": "01-03-2019"
+  },
+  {
+    "vested_quantity": 1500,
+    "date": "01-04-2019"
+  },
+  {
+    "vested_quantity": 1600,
+    "date": "01-05-2019"
+  },
+  {
+    "vested_quantity": 1700,
+    "date": "01-06-2019"
+  },
+  {
+    "vested_quantity": 1800,
+    "date": "01-07-2019"
+  },
+  {
+    "vested_quantity": 1900,
+    "date": "01-08-2019"
+  },
+  {
+    "vested_quantity": 2000,
+    "date": "01-09-2019"
+  },
+  {
+    "vested_quantity": 2100,
+    "date": "01-10-2019"
+  },
+  {
+    "vested_quantity": 2200,
+    "date": "01-11-2019"
+  },
+  {
+    "vested_quantity": 2300,
+    "date": "01-12-2019"
+  },
+  {
+    "vested_quantity": 2400,
+    "date": "01-01-2020"
+  },
+  {
+    "vested_quantity": 2500,
+    "date": "01-02-2020"
+  },
+  {
+    "vested_quantity": 2600,
+    "date": "01-03-2020"
+  },
+  {
+    "vested_quantity": 2700,
+    "date": "01-04-2020"
+  },
+  {
+    "vested_quantity": 2800,
+    "date": "01-05-2020"
+  },
+  {
+    "vested_quantity": 2900,
+    "date": "01-06-2020"
+  },
+  {
+    "vested_quantity": 3000,
+    "date": "01-07-2020"
+  },
+  {
+    "vested_quantity": 3100,
+    "date": "01-08-2020"
+  },
+  {
+    "vested_quantity": 3200,
+    "date": "01-09-2020"
+  },
+  {
+    "vested_quantity": 3300,
+    "date": "01-10-2020"
+  },
+  {
+    "vested_quantity": 3400,
+    "date": "01-11-2020"
+  },
+  {
+    "vested_quantity": 3500,
+    "date": "01-12-2020"
+  },
+  {
+    "vested_quantity": 3600,
+    "date": "01-01-2021"
+  },
+  {
+    "vested_quantity": 3700,
+    "date": "01-02-2021"
+  },
+  {
+    "vested_quantity": 3800,
+    "date": "01-03-2021"
+  },
+  {
+    "vested_quantity": 3900,
+    "date": "01-04-2021"
+  },
+  {
+    "vested_quantity": 4000,
+    "date": "01-05-2021"
+  },
+  {
+    "vested_quantity": 4100,
+    "date": "01-06-2021"
+  },
+  {
+    "vested_quantity": 4200,
+    "date": "01-07-2021"
+  },
+  {
+    "vested_quantity": 4300,
+    "date": "01-08-2021"
+  },
+  {
+    "vested_quantity": 4400,
+    "date": "01-09-2021"
+  },
+  {
+    "vested_quantity": 4500,
+    "date": "01-10-2021"
+  },
+  {
+    "vested_quantity": 4600,
+    "date": "01-11-2021"
+  },
+  {
+    "vested_quantity": 4700,
+    "date": "01-12-2021"
+  },
+  {
+    "vested_quantity": 4800,
+    "date": "01-01-2022"
+  }
+]
+
 // function to change date format
 function reverseDateFormat(dateString) {
   let reversedDate = dateString.split('-').reverse().join('-')
@@ -16,62 +224,97 @@ function reverseDateFormat(dateString) {
 }
 
   // EXAMPLE
-  console.log(`reversedDateFormat`, reverseDateFormat("01-01-2018"))
+  // console.log(`reversedDateFormat`, reverseDateFormat("01-01-2018"))
 
 
 
 // function to increment the month
-function incrementMonth(num, date) {
-
-  let dateObject = new Date(date)  
+function incrementMonth (date) {
+  // split the date into an array, check element 0, year, 1, month, 2, day
+  const dateArray = date.split('-')
+  const 
   
-  while (num > 0) {
-    dateObject.setMonth(dateObject.getMonth() + 1)
-    num -= 1;
+  const year = 0;
+  const month = 1;
+
+  if (dateArray[month] === 12) {
+    dateArray[month] = 0;
+    dateArray[year] += 1;
   }
-  return dateObject;
+  else {
+    dateArray[month] += 1;
+  }
+
+  return dateArray;
 }
+
+console.log(incrementMonth("2018-01-01"))
+
+
+
+
 
   // EXAMPLE
-  console.log(`dateIncremented`, incrementMonth(4, "2018-09-01"))
+  // console.log(`dateIncremented`, incrementMonth("2018-12-01"))
 
 
+// function to make deep clones of objects
 
 
+// Variables extracted from req object
+const quantity = 4800;
+const start_date = "2018-01-01";
+const cliff_months = 12;
+const duration_months = 48;
 
-// function vestingTimeline takes in an array containing an object with the values: quantity, start_date, cliff_months, duration_months
+// Variables declared
 
-function vestingTimeline() {
-  // verify that the array contains the object with all properties as expected
 
-  const output = [];
+const monthlyValueAdd = quantity / duration_months
+let date = start_date
 
-  let quantity = 4800
-  let start_date = "01-01-2018"
-  let cliff_months = 12
-  let duration_months = 48
+const vestingCalculator = () => {
 
-  // used -1 to account for the first month
-  while (duration_months > -1) {
-
-    // object that will be pushed to our output array
-    const monthlyVestingValue = {
-      "vested_quantity": 0,
-      // write function that increments the date every month
-      "date": start_date
-    };
-
-    // push object with vested quantity and date to output array
-    output.push(monthlyVestingValue)
-
-    // decrease duration_months by 1
-    duration_months -= 1
+  let accumulatedValue = 0
+  let counter_duration = duration_months;
+  let counter_cliff = cliff_months;
+  const vestingTimeline = [];
+  const monthlyVestingValue =
+  {
+  "vested_quantity": 0,
+    "date": start_date
   }
+    
+  // while counter_duration > 0, continue
+  while (counter_duration > 0) {
 
-  return output;
+    // first check if the cliff has expired yet
+    if (counter_cliff > 0) {
+        monthlyVestingValue.vested_quantity = 0
+    } else {
+        monthlyVestingValue.vested_quantity = accumulatedValue
+    }
 
+    // push shallow clone to vestingTimeLine
+    let monthlyVestingValueShallowClone = {...monthlyVestingValue}
+    vestingTimeline.push(monthlyVestingValueShallowClone)
+
+    // increment the accumulatedValue with the monthlyValueAdd
+    accumulatedValue += monthlyValueAdd
+    
+    // increment the month by 1
+    monthlyVestingValue.date = incrementMonth(monthlyVestingValue.date)
+    
+    // decrement counter_duration
+    counter_duration -= 1;
+    counter_cliff -= 1;
+  }
+  
+  return vestingTimeline;
 }
 
+result = vestingCalculator()
+console.log(result)
 
 
 
