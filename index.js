@@ -9,6 +9,36 @@
  * 
  */
 
+// function to change date format
+function reverseDateFormat(dateString) {
+  let reversedDate = dateString.split('-').reverse().join('-')
+  return reversedDate
+}
+
+  // EXAMPLE
+  console.log(`reversedDateFormat`, reverseDateFormat("01-01-2018"))
+
+
+
+// function to increment the month
+function incrementMonth(num, date) {
+
+  let dateObject = new Date(date)  
+  
+  while (num > 0) {
+    dateObject.setMonth(dateObject.getMonth() + 1)
+    num -= 1;
+  }
+  return dateObject;
+}
+
+  // EXAMPLE
+  console.log(`dateIncremented`, incrementMonth(4, "2018-09-01"))
+
+
+
+
+
 // function vestingTimeline takes in an array containing an object with the values: quantity, start_date, cliff_months, duration_months
 
 function vestingTimeline() {
@@ -42,7 +72,19 @@ function vestingTimeline() {
 
 }
 
-console.log(vestingTimeline())
+
+
+
+
+
+
+// let d = ne Date("2018-01-01");
+// console.log(d); //Sun Feb 20 2022
+ 
+// d.setMonth(d.getMonth() + 1);
+// console.log(d)
+// ; //Sun Mar 20 2022
+
 
 
 
