@@ -9,7 +9,7 @@
  * 
  */
 
-const inputMainFunc = [
+const inputA = [
   {
     "quantity": 4800,
     "start_date": "01-01-2018",
@@ -18,7 +18,7 @@ const inputMainFunc = [
   }
 ]
 
-const outputMainFunc = [
+const outputA = [
   {
     "vested_quantity": 0,
     "date": "01-01-2018"
@@ -259,11 +259,13 @@ const quantity = 4800;
 const start_date = "01-01-2018";
 const cliff_months = 12;
 const duration_months = 48;
+const price = 10.0
 
 // Variables declared
 
 
 const monthlyValueAdd = quantity / duration_months;
+const monthlyPriceAdd = monthlyValueAdd * price;
 let date = start_date;
 
 const vestingCalculator = () => {
@@ -306,27 +308,109 @@ const vestingCalculator = () => {
   return vestingTimeline;
 }
 
-result = vestingCalculator()
-console.log(result)
+const resultA = vestingCalculator()
+console.log(resultA)
 
 
 
+/**
+ * b. Calculating the value of the vested equity over time
+ * Now consider that the stock for which if you have options has of course a value and this value can change over time; for example because of a new round of investment, among other things.
+ * In this part, we ask you to take this into consideration and return not the quantity of vested options but the total value of said vested options by using the provided valuations (see the sample request below). You may consider that there will be a valuation before a grant is awarded.
+ * As in the previous section, take this request and response both as an API reference and as a very simple test for your service.
+
+ */
+
+// INPUT
+const inputB = 
+{
+  "option_grants": [
+    {
+      "quantity": 4800,
+      "start_date": "01-01-2018",
+      "cliff_months": 12,
+      "duration_months": 48
+ } ],
+  "company_valuations": [
+    {
+      "price": 10.0,
+      "valuation_date": "09-12-2017"
+    }
+ ] 
+}
 
 
+// OUTPUT
 
-// let d = ne Date("2018-01-01");
-// console.log(d); //Sun Feb 20 2022
- 
-// d.setMonth(d.getMonth() + 1);
-// console.log(d)
-// ; //Sun Mar 20 2022
+const outputB = 
+ [ 
+  {
+    "total_value": 0.0,
+    "date": "01-01-2018"
+  },
+  {
+    "total_value": 0.0,
+    "date": "01-02-2018"
+  }, 
 
 
+  {
+    "total_value": 12000.0,
+    "date": "01-01-2019"
+  },
+  {
+    "total_value": 13000.0,
+    "date": "01-02-2019"
+  }, 
 
 
+  {
+    "total_value": 48000.0,
+    "date": "01-01-2022"
+  } 
+]
 
 
-// 4800 / 48 = 100 / month
-// after 12 months, receive the first 100 * 12
-// eventually we want to print out duration_months + 1 value, so in this case 49 objects
+const vestedEquityCalculator = () => {
+
+  let accumulatedPrice = 0.0;
+  let counter_duration = duration_months;
+  let counter_cliff = cliff_months;
+  const vestedEquityTimeline = [];
+  const monthlyVestedEquityValue =
+  {
+    "total_value": 0.0,
+    "date": start_date
+  }
+    
+  // while counter_duration > -1, continue
+  while (counter_duration > -1) {
+
+    // again, first check if the cliff has expired yet
+    if (counter_cliff > 0) {
+        monthlyVestedEquityValue.total_value = 0.0
+    } else {
+        monthlyVestedEquityValue.total_value = accumulatedPrice
+    }
+
+    // push shallow clone to vestedEquityTimeline
+    let monthlyVestedEquityValueShallowClone = {...monthlyVestedEquityValue}
+    vestedEquityTimeline.push(monthlyVestedEquityValueShallowClone)
+
+    // increment the accumulatedValue with the monthlyValueAdd
+    accumulatedPrice += monthlyPriceAdd
+    
+    // increment the month by 1
+    monthlyVestedEquityValue.date = incrementMonth(monthlyVestedEquityValue.date)
+    
+    // decrement counter_duration
+    counter_duration -= 1;
+    counter_cliff -= 1;
+  }
+  
+  return vestedEquityTimeline;
+}
+
+const resultB = vestedEquityCalculator()
+console.log(resultB)
 
