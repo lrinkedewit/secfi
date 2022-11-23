@@ -1,0 +1,20 @@
+{
+  "name": "secfi",
+  "version": "1.0.0",
+  "description": "// NOTE: different notations in different countries new Intl.NumberFormat('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(num)",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lrinkedewit/secfi.git"
+  },
+  "author": "Leonoor Rinke de Wit",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lrinkedewit/secfi/issues"
+  },
+  "homepage": "https://github.com/lrinkedewit/secfi#readme"
+}
