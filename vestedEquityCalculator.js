@@ -4,6 +4,11 @@ import { cliff_months } from "./variables.js";
 import { duration_months } from "./variables.js";
 import { monthlyPriceAdd } from "./variables.js";
 
+import { price_1 } from "./variables.js";
+import { price_2 } from "./variables.js";
+import { valuation_date_1 } from "./variables.js";
+import { valuation_date_2 } from "./variables.js";
+
 export const vestedEquityCalculator = () => {
 
   let accumulatedPrice = 0;
