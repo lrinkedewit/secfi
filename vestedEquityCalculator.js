@@ -32,20 +32,16 @@ const input = {
 
 
 const extractedStartDate = "01-01-2018";
-const extractedValuationDates = ["09-12-2017", "09-07-2018"]
-
-const startDateDay = 1
-const startDateMonth = 1
-const startDateYear = 2018
+const extractedValuationDates = ["09-12-2017", "09-07-2018", "03-02-2019"]
 
 const extractedValues = {
 
   extractedPrices : [10,12,15],
 
   // values below are created with extractValuationDates function
-  extractedValuationDatesDays : [9,9,3],
-  extractedValuationDatesMonths : [12,7,2],
-  extractedValuationDatesYears : [2017,2018,2019],
+  extractedValuationDatesDays : [], // [9,9,3]
+  extractedValuationDatesMonths : [], // [12,7,2]
+  extractedValuationDatesYears : [], // [2017,2018,2019]
   // values below are created with valuationDatesInEffect function
   valuationDatesInEffectDays : [1,1,1],
   valuationDatesInEffectMonths : [1,8,3],
@@ -54,15 +50,45 @@ const extractedValues = {
   durationValuationCounters : [7,7,11]
 }
 
-// function that checks if the first valuation date is before the starting date
-// returns true or throws an error: year should be after / month should be after / day should be after
-const checkValuationDateBeforeGrantingDate = () => {
-  // logic
-}
 
 // function that extracts the valuation dates and adds them to an array
 // throw an error if the date isn't in the right format
-const extractValuationDates = () => {
+const extractValuationDates = (req) => {
+  // declare array to keep track of days
+  const days = [];
+  // declare array to keep track of months
+  const months = [];
+  // declare array to keep track of years
+  const years = [];
+
+  // declare an array to hold all the valuation dates
+  const valuationDates = [];
+
+  // iterate through array of objects and add them to an array
+  for (let i = 0; i < req.company_valuations.length; i += 1) {
+    valuationDates.push(req.company_valuations[i]["valuation_date"])
+  }
+
+  for (let i = 0; i < valuationDates.length; i += 1) {
+    const dateArray = valuationDates[i].split('-');
+    const dateNumbersArray = dateArray.map((el) => Number(el))
+
+    days.push(dateNumbersArray[0]);
+    months.push(dateNumbersArray[1]);
+    years.push(dateNumbersArray[2]);
+  };
+
+  extractedValues.extractedValuationDatesDays = [...days]
+  extractedValues.extractedValuationDatesMonths = [...months]
+  extractedValues.extractedValuationDatesYears = [...years]
+}
+
+// extractValuationDates(input)
+
+
+// function that checks if the first valuation date is before the starting date
+// returns true or throws an error: year should be after / month should be after / day should be after
+const checkValuationDateBeforeGrantingDate = () => {
   // logic
 }
 
@@ -77,15 +103,6 @@ const durationValuationCountersArray = () => {
   // logic
   // the last value should be added with 1, so that the first month of the next year is displayed
 }
-
-
-
-
-
-// first, we need to round up the dates as to when they will be in affect for vesting
-
-
-
 
 export const vestedEquityCalculator = () => {
 
