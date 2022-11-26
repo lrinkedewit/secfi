@@ -22,3 +22,6 @@ export function incrementMonth (date) {
   return output;
 }
 
+export function addTwo (num) {
+  return num + 2;
+}
