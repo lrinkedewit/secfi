@@ -31,23 +31,21 @@ const input = {
 }
 
 
-const extractedStartDate = "01-01-2018";
-const extractedValuationDates = ["09-12-2017", "09-07-2018", "03-02-2019"]
-
 const extractedValues = {
 
-  extractedPrices : [10,12,15],
+  // values below are initated by invoking extractStartDate()
+  extractedStartDate : "", // "01-01-2018",
 
-  // values below are created with extractValuationDates function
-  extractedValuationDatesDays : [], // [9,9,3]
-  extractedValuationDatesMonths : [], // [12,7,2]
-  extractedValuationDatesYears : [], // [2017,2018,2019]
-  // values below are created with valuationDatesInEffect function
-  valuationDatesInEffectDays : [1,1,1],
-  valuationDatesInEffectMonths : [1,8,3],
-  valuationDatesInEffectYears : [2018,2018,2019],
+  // values below are initated by invoking extractPrices()
+  extractedPrices : [], // [10,12,15]
+
+  // values below are initiated by invoking extractValuationDates()
+  valuationDatesInEffectDays : [], // [1,1,1]
+  valuationDatesInEffectMonths : [], // [1,8,3]
+  valuationDatesInEffectYears : [], // [2018,2018,2019]
+
   // values below are created with durationValuationCountersArray function
-  durationValuationCounters : [7,7,11]
+  durationValuationCounters : [] // [7,7,11]
 }
 
 
@@ -78,12 +76,66 @@ const extractValuationDates = (req) => {
     years.push(dateNumbersArray[2]);
   };
 
-  extractedValues.extractedValuationDatesDays = [...days]
-  extractedValues.extractedValuationDatesMonths = [...months]
-  extractedValues.extractedValuationDatesYears = [...years]
+  // functionality that rounds up all dates that are later than the 1st of the month
+  for (let i = 0; i < days.length; i += 1) {
+    if (days[i] > 1) {
+      if (months[i] === 12) {
+        days[i] = 1;
+        months[i] = 1;
+        years[i] += 1;
+      }
+      else {
+        days[i] = 1;
+        months[i] += 1;
+      }
+    }
+
+  }
+
+  for (let i = years.length - 1; i > 0; i -= 1) {
+    let monthCounter = 0
+    monthCounter = ((years[i] - years[i - 1]) * 12) + (months[i] - months[i - 1])
+    extractedValues.durationValuationCounters.push(monthCounter)
+  }
+
+  // adding final counter based on adding up durationValuationCounters and subtracting that from duration_months
+  // add 1 to the value to see the price into the next month as ouput
+  let sumMonthCounters = extractedValues.durationValuationCounters.reduce((a,b) => a + b)
+  console.log(`this is the sumMonths`, sumMonthCounters)
+  extractedValues.durationValuationCounters.push(req.option_grants[0].duration_months - sumMonthCounters + 1)
+
+  extractedValues.valuationDatesInEffectDays = [...days]
+  extractedValues.valuationDatesInEffectMonths = [...months]
+  extractedValues.valuationDatesInEffectYears = [...years]
 }
 
 // extractValuationDates(input)
+// console.log(`1`, extractedValues)
+
+// function that extracts the prices and places them in an array
+const extractPrices = (req) => {
+
+  // array to hold the prices
+  const prices = [];
+
+  // iterate through array of objects and add them to an array
+  for (let i = 0; i < req.company_valuations.length; i += 1) {
+    prices.push(req.company_valuations[i]["price"])
+  }
+
+  extractedValues.extractedPrices = [...prices]
+}
+
+extractPrices(input)
+
+// function that extracts the startdate
+const extractStartDate = (req) => {
+  extractedValues.extractedStartDate += req.option_grants[0].start_date;
+}
+
+extractStartDate(input)
+// console.log(`3`, extractedValues)
+
 
 
 // function that checks if the first valuation date is before the starting date
@@ -92,15 +144,12 @@ const checkValuationDateBeforeGrantingDate = () => {
   // logic
 }
 
-// function that creates new arrays with when the valuation dates are in effect
-const valuationDatesInEffect = () => {
-  // logic
-}
-
+// valuationDatesInEffectDays : [1,1,1]
+// valuationDatesInEffectMonths : [1,8,3]
+// valuationDatesInEffectYears : [2018,2018,2019]
 
 // function that adds counters to an array based on subtracting valudation dates
 const durationValuationCountersArray = () => {
-  // logic
   // the last value should be added with 1, so that the first month of the next year is displayed
 }
 

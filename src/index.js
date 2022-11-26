@@ -14,7 +14,7 @@ export default {
     // read the body
     let input = await request.json()
 
-    const output = addTwo(input.option_grants[0].quantity)
+    const output = vestedEquityCalculator(input)
 
     return new Response(output);
   },
