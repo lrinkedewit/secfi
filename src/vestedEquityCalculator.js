@@ -1,8 +1,6 @@
 import { incrementMonth } from "./utils.js";
-import { start_date } from "./variables.js";
-import { cliff_months } from "./variables.js";
-import { duration_months } from "./variables.js";
-
+// import { start_date } from "./variables.js";
+// import { cliff_months } from "./variables.js";
 
 // EXAMPLE INPUT
 const input = {
@@ -101,16 +99,13 @@ const extractValuationDates = (req) => {
   // adding final counter based on adding up durationValuationCounters and subtracting that from duration_months
   // add 1 to the value to see the price into the next month as ouput
   let sumMonthCounters = extractedValues.durationValuationCounters.reduce((a,b) => a + b)
-  console.log(`this is the sumMonths`, sumMonthCounters)
+  // console.log(`this is the sumMonths`, sumMonthCounters)
   extractedValues.durationValuationCounters.push(req.option_grants[0].duration_months - sumMonthCounters + 1)
 
   extractedValues.valuationDatesInEffectDays = [...days]
   extractedValues.valuationDatesInEffectMonths = [...months]
   extractedValues.valuationDatesInEffectYears = [...years]
 }
-
-// extractValuationDates(input)
-// console.log(`1`, extractedValues)
 
 // function that extracts the prices and places them in an array
 const extractPrices = (req) => {
@@ -126,43 +121,25 @@ const extractPrices = (req) => {
   extractedValues.extractedPrices = [...prices]
 }
 
-extractPrices(input)
-
 // function that extracts the startdate
 const extractStartDate = (req) => {
   extractedValues.extractedStartDate += req.option_grants[0].start_date;
 }
 
-extractStartDate(input)
-// console.log(`3`, extractedValues)
-
-
-
-// function that checks if the first valuation date is before the starting date
-// returns true or throws an error: year should be after / month should be after / day should be after
-const checkValuationDateBeforeGrantingDate = () => {
-  // logic
-}
-
-// valuationDatesInEffectDays : [1,1,1]
-// valuationDatesInEffectMonths : [1,8,3]
-// valuationDatesInEffectYears : [2018,2018,2019]
-
-// function that adds counters to an array based on subtracting valudation dates
-const durationValuationCountersArray = () => {
-  // the last value should be added with 1, so that the first month of the next year is displayed
-}
-
-export const vestedEquityCalculator = () => {
+export const vestedEquityCalculator = (req) => {
 
   let accumulatedPrice = 0;
-  let counter_cliff = cliff_months;
+  let counter_cliff = req.cliff_months;
   const vestedEquityTimeline = [];
   const monthlyVestedEquityValue =
   {
     "total_value": 0.0,
-    "date": start_date
+    "date": req.option_grants[0].start_date
   }
+
+  extractValuationDates(req)
+  extractPrices(req)
+  extractStartDate(req)
 
   // for loop that lasts for the duration of the counter array
   for (let i = 0; i < extractedValues.durationValuationCounters.length; i +=1) {
@@ -197,5 +174,5 @@ export const vestedEquityCalculator = () => {
   return vestedEquityTimeline;
 }
 
-const resultB = vestedEquityCalculator()
-console.log(resultB)
+// const resultB = vestedEquityCalculator(input)
+// console.log(resultB)

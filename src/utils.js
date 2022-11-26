@@ -21,7 +21,3 @@ export function incrementMonth (date) {
   const output = dayString + '-' + monthString + '-' + yearString
   return output;
 }
-
-export function addTwo (num) {
-  return num + 2;
-}
