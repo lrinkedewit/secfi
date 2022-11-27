@@ -96,6 +96,8 @@ As the timeline in the assignment shows the 1st of the month, I rounded up the v
 
 Using the valuationDatesInEffect values, it was possible to deduce the number of months where the valuation price was in effect. I created a function that subtracts the last values from the second-to-last values. For example, 2019 - 2018 = 1 year, 12 months, and 3 - 8 = -5 months. 12 months - 5 months is 7 months. Similarly, 2018 - 2018 = 0 years, aka 0 months, and 8 - 1 = 7 months. Hence we know that the first 7 months the price of the options was $10, after that, the next 7 months the price of the options was $12, finally, the price of the options in the remaining period was $15. 
 
-These values were added cumulatively. See an easy visualization on [Miro](https://miro.com/app/board/uXjVPCxg-M4=/?moveToWidget=3458764539622709001&cot=14).
+These values were added cumulatively. See an easy visualization on [Miro](https://miro.com/app/board/uXjVPCxg-M4=/?moveToWidget=3458764539622709001&cot=14). 
+
+## Conclusion
 
 I hope you have fun using my vesting calculator! 😎
