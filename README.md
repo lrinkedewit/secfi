@@ -36,12 +36,12 @@
   ]
 }
 ```
-3. I recommend using Postman as an easy way to play around with *vestedEquityCalculator*
+3. I recommend using Postman as an easy way to play around with **vestedEquityCalculator**
 
-## How to send requests to *vestedEquityCalculator* ➡️
+## How to send requests to **vestedEquityCalculator** ➡️
 [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/a9d44dcd10a3857f63f4?action=collection%2Fimport)
 For ease of use, I created a few sample requests in Postman. These can be used by clicking the link above. Make sure you have a Postman account. Play around with the requests! For instance, you can change the cliff to 6 months, 13 months, or 0 months. Furthermore, you can add multiple valuation dates & prices.
 
 ## How does it work in broad strokes? ⚡️
-
+**vestedEquityCalculator** is written in TypeScript and is deployed to a worker on Cloudflare. Workers on Cloudflare work similarly to lambdas in AWS but with the benefit that they don't have cold starts. To learn more, check out the (docs)[https://developers.cloudflare.com/workers/]
 
