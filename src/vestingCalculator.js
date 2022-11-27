@@ -1,8 +1,13 @@
 import { incrementMonth } from "./utils.js";
-import { start_date } from "./variables.js";
-import { cliff_months } from "./variables.js";
-import { duration_months } from "./variables.js";
-import { monthlyValueAdd } from "./variables.js";
+
+// Variables extracted from req object
+export const quantity = 1200;
+export const start_date = "01-01-2018";
+export const cliff_months = 12;
+export const duration_months = 12;
+
+// Variables declared
+export const monthlyValueAdd = quantity / duration_months;
 
 export const vestingCalculator = () => {
 
@@ -44,5 +49,5 @@ export const vestingCalculator = () => {
   return vestingTimeline;
 }
 
-const resultA = vestingCalculator()
-console.log(resultA)
+// const result = vestingCalculator()
+// console.log(result)
