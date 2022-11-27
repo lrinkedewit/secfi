@@ -1,37 +1,40 @@
 // function to increment the month second option
-export const incrementMonth = (date) => { 
-  const dateArray = date.split('-');
-  const dateNumbersArray = dateArray.map((el) => Number(el))
+import { Input } from "./types";
+import { Message } from "./types";
 
-  let yearNum = dateNumbersArray[2];
-  let monthNum = dateNumbersArray[1];
-  let dayNum = dateNumbersArray[0];
+export const incrementMonth = (date : string) => { 
+  const dateArray : string[] = date.split('-');
+  const dateNumbersArray : number[] = dateArray.map((el) => Number(el));
+
+  let yearNum : number = dateNumbersArray[2];
+  let monthNum : number = dateNumbersArray[1];
+  let dayNum : number = dateNumbersArray[0];
 
   if (monthNum === 12) {
     monthNum = 1
     yearNum += 1
   } else {
     monthNum += 1
-  }
+  };
 
-  let yearString = String(yearNum);
-  let monthString = String(monthNum).padStart(2, '0');
-  let dayString = String(dayNum).padStart(2, '0');
+  let yearString : string = String(yearNum);
+  let monthString : string = String(monthNum).padStart(2, '0');
+  let dayString : string = String(dayNum).padStart(2, '0');
 
-  const output = dayString + '-' + monthString + '-' + yearString
+  const output : string = dayString + '-' + monthString + '-' + yearString;
   return output;
 }
 
-export const extractValuationDates = (req, message) => {
-  const days = [];
-  const months = [];
-  const years = [];
+export const extractValuationDates = (req: Input, message: Message) => {
+  const days : number[] = [];
+  const months : number[] = [];
+  const years : number[] = [];
 
   // declare an array to hold all the valuation dates
-  const valuationDates = [];
+  const valuationDates: string[] = [];
 
   for (let i = 0; i < req.company_valuations.length; i += 1) {
-    valuationDates.push(req.company_valuations[i]["valuation_date"])
+    valuationDates.push(req.company_valuations[i].valuation_date)
   }
 
   for (let i = 0; i < valuationDates.length; i += 1) {
@@ -62,14 +65,14 @@ export const extractValuationDates = (req, message) => {
   // conditional to work with multiple company_valuations or single company_valuation
   if (years.length > 1) {
     for (let i = years.length - 1; i > 0; i -= 1) {
-      let monthCounter = 0
+      let monthCounter: number = 0
       monthCounter = ((years[i] - years[i - 1]) * 12) + (months[i] - months[i - 1])
       message.durationValuationCounters.push(monthCounter)
     }
 
     // adding final counter based on adding up durationValuationCounters and subtracting that from duration_months
     // add 1 to the value to see the price into the next month as ouput
-    let sumMonthCounters = message.durationValuationCounters.reduce((a,b) => a + b)
+    let sumMonthCounters: number = message.durationValuationCounters.reduce((a: number, b: number) => a + b)
     message.durationValuationCounters.push(req.option_grants[0].duration_months - sumMonthCounters + 1)
   } else {
     message.durationValuationCounters.push(req.option_grants[0].duration_months + 1)
@@ -81,10 +84,10 @@ export const extractValuationDates = (req, message) => {
 }
 
 
-export const extractPrices = (req, message) => {
+export const extractPrices = (req: Input, message: Message) => {
 
   // array to hold the prices
-  const prices = [];
+  const prices : number[] = [];
 
   // iterate through array of objects and add them to an array
   for (let i = 0; i < req.company_valuations.length; i += 1) {
@@ -94,6 +97,6 @@ export const extractPrices = (req, message) => {
   message.extractedPrices = [...prices]
 }
 
-export const extractStartDate = (req, message) => {
+export const extractStartDate = (req: Input, message: Message) => {
   message.extractedStartDate += req.option_grants[0].start_date;
 }

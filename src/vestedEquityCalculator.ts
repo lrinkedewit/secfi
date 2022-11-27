@@ -3,9 +3,14 @@ import { extractValuationDates } from "./utils.js";
 import { extractPrices } from "./utils.js";
 import { extractStartDate } from "./utils.js";
 
-export const vestedEquityCalculator = (req) => {
+import { Input } from "./types.js";
+import { Message } from "./types.js";
+import { MonthlyVestedEquityValue } from "./types.js";
 
-  const vestingMessage = {
+
+export const vestedEquityCalculator = (req: Input) => {
+
+  const vestingMessage : Message = {
     // values below are initated by invoking extractStartDate()
     extractedStartDate : "", 
   
@@ -20,15 +25,15 @@ export const vestedEquityCalculator = (req) => {
     durationValuationCounters : []
   }
 
-  let accumulatedPrice = 0;
-  let counter_cliff = req.option_grants[0].cliff_months;
-  const vestedEquityTimeline = [];
-  const monthlyVestedEquityValue =
+  let accumulatedPrice : number = 0;
+  let counter_cliff : number = req.option_grants[0].cliff_months;
+  const vestedEquityTimeline : MonthlyVestedEquityValue[] = [];
+  const monthlyVestedEquityValue : MonthlyVestedEquityValue =
   {
-    "total_value": 0.0,
+    "total_value": 0,
     "date": req.option_grants[0].start_date
   };
-  const monthlyValueAdd = req.option_grants[0].quantity / req.option_grants[0].duration_months;
+  const monthlyValueAdd : number = req.option_grants[0].quantity / req.option_grants[0].duration_months;
 
   extractValuationDates(req, vestingMessage);
   extractPrices(req, vestingMessage);
@@ -48,7 +53,7 @@ export const vestedEquityCalculator = (req) => {
       }
 
       // push shallow clone to vestedEquityTimeline
-      let monthlyVestedEquityValueShallowClone = {...monthlyVestedEquityValue}
+      let monthlyVestedEquityValueShallowClone : MonthlyVestedEquityValue = {...monthlyVestedEquityValue}
       vestedEquityTimeline.push(monthlyVestedEquityValueShallowClone)
 
       // increment the accumulatedValue with the monthlyValueAdd
