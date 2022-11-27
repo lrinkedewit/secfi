@@ -96,6 +96,6 @@ Using the valuationDatesInEffect values, it was possible deduce the number of mo
 
 These values were added cumulatively. See an easy visualization here:
 
-![image](https://user-images.githubusercontent.com/69660903/204157935-ddf0c637-8916-4df9-8951-f90e64824dfd.png)
+![image](https://user-images.githubusercontent.com/69660903/204158027-660016ea-468a-49b3-881a-6bffb713234f.png)
 
-I hope you have fun using my calculator! I sure had fun building it 😎
+I hope you have fun using my vesting calculator! I sure had fun building it 😎
