@@ -43,5 +43,5 @@
 For ease of use, I created a few sample requests in Postman. These can be used by clicking the link above. Make sure you have a Postman account. Play around with the requests! For instance, you can change the cliff to 6 months, 13 months, or 0 months. Furthermore, you can add multiple valuation dates & prices.
 
 ## How does it work in broad strokes? ⚡️
-**vestedEquityCalculator** is written in TypeScript and is deployed to a worker on Cloudflare. Workers on Cloudflare work similarly to lambdas in AWS but with the benefit that they don't have cold starts. To learn more, check out the (docs)[https://developers.cloudflare.com/workers/]
+**vestedEquityCalculator** is written in TypeScript and is deployed to a worker on Cloudflare. Workers on Cloudflare work similarly to lambdas in AWS but with the benefit that they don't have cold starts. To learn more, check out the [docs](https://developers.cloudflare.com/workers/)
 
