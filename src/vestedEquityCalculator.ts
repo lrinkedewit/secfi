@@ -1,51 +1,43 @@
-import { incrementMonth } from "./utils.js";0
-import { extractValuationDates } from "./utils.js";
-import { extractPrices } from "./utils.js";
-import { extractStartDate } from "./utils.js";
-
-import { Input } from "./types.js";
-import { Message } from "./types.js";
-import { MonthlyVestedEquityValue } from "./types.js";
-
+import { extractPrices, extractStartDate, extractValuationDates, incrementMonth } from "./utils";
+import { Input, Message, MonthlyVestedEquityValue } from "./types";
 
 export const vestedEquityCalculator = (req: Input) => {
 
-  const vestingMessage : Message = {
-    // values below are initated by invoking extractStartDate()
-    extractedStartDate : "", 
+  const vestingMessage: Message = {
+    extractedStartDate: "", 
   
-    // values below are initated by invoking extractPrices()
-    extractedPrices : [],
+    // Price per company valuation
+    extractedPrices: [],
   
-    // values below are initiated by invoking extractValuationDates()
-    valuationDatesInEffectDays : [],
-    valuationDatesInEffectMonths : [],
-    valuationDatesInEffectYears : [], 
+    // Company valuation dates
+    valuationDatesInEffectDays: [],
+    valuationDatesInEffectMonths: [],
+    valuationDatesInEffectYears: [],
   
-    durationValuationCounters : []
+    // For internal use
+    durationValuationCounters: []
   }
 
-  let accumulatedPrice : number = 0;
-  let counter_cliff : number = req.option_grants[0].cliff_months;
-  const vestedEquityTimeline : MonthlyVestedEquityValue[] = [];
-  const monthlyVestedEquityValue : MonthlyVestedEquityValue =
-  {
+  let accumulatedPrice = 0;
+  let counter_cliff = req.option_grants[0].cliff_months;
+  const vestedEquityTimeline: MonthlyVestedEquityValue[] = [];
+  const monthlyVestedEquityValue: MonthlyVestedEquityValue = {
     "total_value": 0,
     "date": req.option_grants[0].start_date
   };
-  const monthlyValueAdd : number = req.option_grants[0].quantity / req.option_grants[0].duration_months;
+  const monthlyValueAdd = req.option_grants[0].quantity / req.option_grants[0].duration_months;
 
   extractValuationDates(req, vestingMessage);
   extractPrices(req, vestingMessage);
   extractStartDate(req, vestingMessage);
 
-  // for loop that lasts for the duration of the counter array
+  // Loop and calculate for each company valuation
   for (let i = 0; i < vestingMessage.durationValuationCounters.length; i +=1) {
     
     // while counter_duration > 0, continue
     while (vestingMessage.durationValuationCounters[i] > 0) {
 
-      // again, first check if the cliff has expired yet
+      // check if the cliff has expired yet
       if (counter_cliff > 0) {
           monthlyVestedEquityValue.total_value = 0.0;
       } else {

@@ -19,9 +19,9 @@ export type Message = {
   extractedStartDate: string,
   extractedPrices: number[],
   valuationDatesInEffectDays: number[],
-  valuationDatesInEffectMonths : number[],
-  valuationDatesInEffectYears : number[], 
-  durationValuationCounters : number[]
+  valuationDatesInEffectMonths: number[],
+  valuationDatesInEffectYears: number[], 
+  durationValuationCounters: number[]
 }
 
 export type MonthlyVestedEquityValue = {

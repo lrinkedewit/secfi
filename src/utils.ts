@@ -1,14 +1,12 @@
-// function to increment the month second option
-import { Input } from "./types";
-import { Message } from "./types";
+import { Input, Message } from "./types";
 
-export const incrementMonth = (date : string) => { 
+export const incrementMonth = (date: string) => { 
   const dateArray : string[] = date.split('-');
   const dateNumbersArray : number[] = dateArray.map((el) => Number(el));
 
-  let yearNum : number = dateNumbersArray[2];
-  let monthNum : number = dateNumbersArray[1];
-  let dayNum : number = dateNumbersArray[0];
+  let yearNum: number = dateNumbersArray[2];
+  let monthNum: number = dateNumbersArray[1];
+  let dayNum: number = dateNumbersArray[0];
 
   if (monthNum === 12) {
     monthNum = 1
@@ -17,18 +15,18 @@ export const incrementMonth = (date : string) => {
     monthNum += 1
   };
 
-  let yearString : string = String(yearNum);
-  let monthString : string = String(monthNum).padStart(2, '0');
-  let dayString : string = String(dayNum).padStart(2, '0');
+  let yearString: string = String(yearNum);
+  let monthString: string = String(monthNum).padStart(2, '0');
+  let dayString: string = String(dayNum).padStart(2, '0');
 
-  const output : string = dayString + '-' + monthString + '-' + yearString;
+  const output: string = dayString + '-' + monthString + '-' + yearString;
   return output;
 }
 
 export const extractValuationDates = (req: Input, message: Message) => {
-  const days : number[] = [];
-  const months : number[] = [];
-  const years : number[] = [];
+  const days: number[] = [];
+  const months: number[] = [];
+  const years: number[] = [];
 
   // declare an array to hold all the valuation dates
   const valuationDates: string[] = [];
@@ -87,7 +85,7 @@ export const extractValuationDates = (req: Input, message: Message) => {
 export const extractPrices = (req: Input, message: Message) => {
 
   // array to hold the prices
-  const prices : number[] = [];
+  const prices: number[] = [];
 
   // iterate through array of objects and add them to an array
   for (let i = 0; i < req.company_valuations.length; i += 1) {
