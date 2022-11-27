@@ -18,7 +18,6 @@ export const vestedEquityCalculator = (req) => {
     valuationDatesInEffectMonths : [],
     valuationDatesInEffectYears : [], 
   
-    // values below are created with durationValuationCountersArray function
     durationValuationCounters : []
   }
 
@@ -30,6 +29,7 @@ export const vestedEquityCalculator = (req) => {
     "total_value": 0.0,
     "date": req.option_grants[0].start_date
   };
+  const monthlyValueAdd = req.option_grants[0].quantity / req.option_grants[0].duration_months;
 
   extractValuationDates(req, vestingMessage);
   extractPrices(req, vestingMessage);
@@ -43,9 +43,9 @@ export const vestedEquityCalculator = (req) => {
 
       // again, first check if the cliff has expired yet
       if (counter_cliff > 0) {
-          monthlyVestedEquityValue.total_value = 0.0
+          monthlyVestedEquityValue.total_value = 0.0;
       } else {
-          monthlyVestedEquityValue.total_value = accumulatedPrice
+          monthlyVestedEquityValue.total_value = accumulatedPrice;
       }
 
       // push shallow clone to vestedEquityTimeline
@@ -53,7 +53,7 @@ export const vestedEquityCalculator = (req) => {
       vestedEquityTimeline.push(monthlyVestedEquityValueShallowClone)
 
       // increment the accumulatedValue with the monthlyValueAdd
-      accumulatedPrice += vestingMessage.extractedPrices[i];
+      accumulatedPrice += vestingMessage.extractedPrices[i] * monthlyValueAdd;
       
       // increment the month by 1
       monthlyVestedEquityValue.date = incrementMonth(monthlyVestedEquityValue.date)
